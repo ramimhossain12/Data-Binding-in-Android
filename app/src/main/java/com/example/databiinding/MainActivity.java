@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     public  class EventHandler{
 
-        public  void  handleClick(View v){
-            Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_SHORT).show();
+        public  void  handleClick(String  name  ){
+            Toast.makeText(getApplicationContext(),name,Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this,MainActivity2.class);
             startActivity(intent);
 
