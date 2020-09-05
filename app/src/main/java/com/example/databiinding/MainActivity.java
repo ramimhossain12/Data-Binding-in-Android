@@ -16,18 +16,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding =
                 DataBindingUtil.setContentView(this,R.layout.activity_main);
+             binding.setAStudent(new Student("Ramim Hossain",26));
 
-        
 
-        binding.tvOne.setText("Ramim");
-        binding.tvTwo.setText("Hossain");
-        binding.tvThree.setText("Hridoy");
-        binding.btnID.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
-                startActivity(intent);
-            }
-        });
+
+    }
+
+    public  class Student{
+
+        private  String name;
+        private  int age;
+
+        public Student(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
     }
 }

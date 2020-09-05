@@ -1,52 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
- <layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
+    <data>
+
+        <variable
+            name="aStudent"
+            type="com.example.databiinding.MainActivity.Student" />
+
+
+
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:gravity="center"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp"
         android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
         tools:context=".MainActivity">
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World"
-            android:id="@+id/tvOne"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World"
-            android:id="@+id/tvTwo"
+            android:text="@{aStudent.name}"
 
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World"
-            android:id="@+id/tvThree"
+            android:text="@{String.valueOf(aStudent.age)}"
 
             />
 
 
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Click"
-            android:layout_marginTop="25sp"
-            android:id="@+id/btnID"/>
+
 
 
 
