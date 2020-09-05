@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.databiinding.databinding.ActivityMainBinding;
 
@@ -17,9 +18,21 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding =
                 DataBindingUtil.setContentView(this,R.layout.activity_main);
              binding.setAStudent(new Student("Ramim Hossain",26));
+             binding.setHandler(new EventHandler());
 
 
 
+    }
+
+
+    public  class EventHandler{
+
+        public  void  handleClick(View v){
+            Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this,MainActivity2.class);
+            startActivity(intent);
+
+        }
     }
 
     public  class Student{

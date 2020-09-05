@@ -9,6 +9,11 @@
         <variable
             name="aStudent"
             type="com.example.databiinding.MainActivity.Student" />
+        
+        
+        <variable
+            name="handler"
+            type="com.example.databiinding.MainActivity.EventHandler" />
 
 
 
@@ -42,7 +47,11 @@
 
 
 
-
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Cick"
+         android:onClick="@{handler::handleClick}"/>
 
 
     </LinearLayout>
