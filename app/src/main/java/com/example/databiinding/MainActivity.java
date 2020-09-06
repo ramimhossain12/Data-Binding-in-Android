@@ -3,9 +3,12 @@ package com.example.databiinding;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -19,15 +22,33 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding =
                 DataBindingUtil.setContentView(this,R.layout.activity_main);
 
-        Student aStudent = new Student("Ramim Hossain",99);
+        final Student aStudent = new Student("Ramim Hossain",99);
         aStudent.setImageUrl("https://images.pexels.com/photos/1413412/pexels-photo-1413412.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
-        aStudent.setImageUrl("https://images.pexels.com/photos/1172675/pexels-photo-1172675.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+
         binding.setAStudent(aStudent);
+        binding.etName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                aStudent.setName(editable.toString());
+
+            }
+        });
 
 
 
@@ -38,32 +59,21 @@ public class MainActivity extends AppCompatActivity {
 
     public  class Student{
 
-        private  String name;
+        private ObservableField<String> name = new ObservableField<>();
         private  int age;
         private  String imageUrl;
-        private String imageUrl1;
+
 
 
 
         public Student(String name, int age) {
-            this.name = name;
+            this.name.set(name);
             this.age = age;
         }
 
-        public String getImageUrl1() {
-            return imageUrl1;
-        }
-
-        public void setImageUrl1(String imageUrl1) {
-            this.imageUrl1 = imageUrl1;
-        }
-
-        public String getName() {
-            return name;
-        }
 
         public void setName(String name) {
-            this.name = name;
+            this.name.set(name);
         }
 
         public int getAge() {
@@ -84,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @BindingAdapter("imageUrl")
-    public static  void  loadimage(ImageView imageView, String url){
+    public static  void  loadimage(ImageView imageView, String url ){
 
         Glide.with(imageView.getContext())
                 .load(url)
