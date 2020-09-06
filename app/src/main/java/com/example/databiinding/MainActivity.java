@@ -1,9 +1,13 @@
 package com.example.databiinding;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
+import androidx.databinding.PropertyChangeRegistry;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.databiinding.databinding.ActivityMainBinding;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,24 +36,6 @@ public class MainActivity extends AppCompatActivity {
         aStudent.setImageUrl("https://images.pexels.com/photos/1413412/pexels-photo-1413412.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
 
         binding.setAStudent(aStudent);
-        binding.etName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                aStudent.setName(editable.toString());
-
-            }
-        });
 
 
 
@@ -57,9 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public  class Student{
+    public  class Student implements Observable {
 
-        private ObservableField<String> name = new ObservableField<>();
+
+        private PropertyChangeRegistry registry = new PropertyChangeRegistry();
+        private String  name;
         private  int age;
         private  String imageUrl;
 
@@ -67,13 +56,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         public Student(String name, int age) {
-            this.name.set(name);
+            this.name=name;
             this.age = age;
         }
 
 
         public void setName(String name) {
-            this.name.set(name);
+            this.name=name;
+            registry.notifyChange(this,BR.name);
+        }
+           @Bindable
+        public String getName() {
+            return name;
         }
 
         public int getAge() {
@@ -91,6 +85,25 @@ public class MainActivity extends AppCompatActivity {
         public void setImageUrl(String imageUrl) {
             this.imageUrl = imageUrl;
         }
+
+        @Override
+
+        public void addOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
+
+            registry.add(callback);
+            
+        }
+
+        @Override
+        public void removeOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
+
+
+            registry.remove(callback );
+        }
+    }
+
+    private void notifyPropertyChanged(int name) {
+
     }
 
     @BindingAdapter("imageUrl")
